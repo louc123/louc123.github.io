@@ -5,18 +5,19 @@
   
 
   
-  <title>LOUC&#39;S BLOG</title>
+  <title>llvm (1) | LOUC&#39;S BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="blog memo">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LOUC&#39;S BLOG">
-<meta property="og:url" content="https://louc123.github.io/index.html">
+  <meta name="description" content="数据跑了两天还没跑完，前几天听了学长介绍LLVM的介绍，就利用跑数据的时间学习一下简单使用，但是没想到还还挺麻烦的，在此记录一下  安装 生成IR文件 查看CFG图  安装系统是ubuntu16，可以直接使用apt进行安装 12sudo apt-get install llvmsudo apt-get install clang 这样安装的是llvm-3.8版本，但是官方已经出到6.0（马上要出7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="llvm (1)">
+<meta property="og:url" content="https://louc123.github.io/2018/07/25/llvm-1/index.html">
 <meta property="og:site_name" content="LOUC&#39;S BLOG">
-<meta property="og:description" content="blog memo">
+<meta property="og:description" content="数据跑了两天还没跑完，前几天听了学长介绍LLVM的介绍，就利用跑数据的时间学习一下简单使用，但是没想到还还挺麻烦的，在此记录一下  安装 生成IR文件 查看CFG图  安装系统是ubuntu16，可以直接使用apt进行安装 12sudo apt-get install llvmsudo apt-get install clang 这样安装的是llvm-3.8版本，但是官方已经出到6.0（马上要出7">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-26T04:34:32.711Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LOUC&#39;S BLOG">
-<meta name="twitter:description" content="blog memo">
+<meta name="twitter:title" content="llvm (1)">
+<meta name="twitter:description" content="数据跑了两天还没跑完，前几天听了学长介绍LLVM的介绍，就利用跑数据的时间学习一下简单使用，但是没想到还还挺麻烦的，在此记录一下  安装 生成IR文件 查看CFG图  安装系统是ubuntu16，可以直接使用apt进行安装 12sudo apt-get install llvmsudo apt-get install clang 这样安装的是llvm-3.8版本，但是官方已经出到6.0（马上要出7">
   
     <link rel="alternate" href="/atom.xml" title="LOUC&#39;S BLOG" type="application/atom+xml">
   
@@ -69,9 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-llvm-1" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-llvm-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/07/25/llvm-1/" class="article-date">
   <time datetime="2018-07-25T14:10:48.000Z" itemprop="datePublished">2018-07-25</time>
@@ -84,8 +83,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/25/llvm-1/">llvm (1)</a>
+    <h1 class="article-title" itemprop="name">
+      llvm (1)
     </h1>
   
 
@@ -129,111 +128,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-sweep3d-data-create" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/22/sweep3d-data-create/" class="article-date">
-  <time datetime="2018-07-22T13:03:46.000Z" itemprop="datePublished">2018-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/22/sweep3d-data-create/">sweep3d data create</a>
-    </h1>
+    <a href="/2018/07/22/sweep3d-data-create/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">sweep3d data create</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这两天主要是生成模型训练所需的数据，写了一个python脚本。记录一下踩的坑和学到的小tick。<br></p>
-<ul>
-<li>mpi运行指定进程</li>
-<li>python里执行shell命令</li>
-<li>VS Code换行符技巧</li>
-</ul>
-<hr>
-<p>这个sweep3d工具貌似是进行物理计算用的，可以通过mpi并行计算并指定进程数和输入数据规模。运行的时候需要指定运行所需的进程数，如：<br><br><code>$:mpirun -np 10 ./sweep3d.mpi</code><br><br>就是指定以10个进程运行<br></p>
-<hr>
-<p>这里需要使用shell命令运行工具，但是我觉得用shell的命令进行文件读写修改很麻烦，就使用python调用执行shell命令。这里使用的是python提供的subprocess模块，官方文档上写的是该模块用于替代os.system、os.popen等功能。这里我用的是check_call函数，因为可以返回错误说明，用法如下：<br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">subprocess.check_call(<span class="string">"ls -l"</span>,shell=<span class="keyword">True</span>)</span><br></pre></td></tr></table></figure></p>
-<p>文档里推荐的用法是<br><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> subprocess</span><br><span class="line">subprocess.check_call([<span class="string">"ls"</span>, <span class="string">"-l"</span>])</span><br></pre></td></tr></table></figure></p>
-<p>但是我在使用的时候，有时会出现执行错误的情况（看起来像是字符串解析有问题，待解决）<br></p>
-<hr>
-<p>在windows的VS Code上编写bash脚本，拿到linux上运行的时候报错，原来是\r\n的问题。这里可以点击VS Code右下角的“CRLF”，在界面上方出现的选项里选择“LF”即可。<br></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://louc123.github.io/2018/07/22/sweep3d-data-create/" data-id="cjk22el410001tgv9gng3oo7e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diary/">diary</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hexo-blog-build" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/20/hexo-blog-build/" class="article-date">
-  <time datetime="2018-07-20T14:27:35.000Z" itemprop="datePublished">2018-07-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/20/hexo-blog-build/">hexo blog build</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这一篇第一篇日志，所谓万事开头难，希望自己能坚持下去吧<br><br>今天主要做的事情有:<br></p>
-<ul>
-<li>将hexo博客部署到github上</li>
-<li>了解了一些边缘计算的信息</li>
-<li>hpc项目生成数据（进行中）</li>
-</ul>
-<p>关于博客部署，主要是在远程仓库名称设置和本地hexo项目里的_config.yml里的url和root设置有些坑，准备单开一篇文章来说。<br></p>
-<p>边缘计算主要是听学长作的报告了解了一些基本概念，想想我接手的项目也是有关移动边边缘计算的，感觉圈子真小。最近边缘计算比较火，华为的招聘会里也有一些边缘计算的工作，可以多了解一下。<br></p>
-<p>hpc项目数据生成等到做完再细说吧，今天主要是熟悉一下工具用法。<br></p>
-<p>爵士乐+ACG很好听</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://louc123.github.io/2018/07/20/hexo-blog-build/" data-id="cjk22el4v0005tgv9b41wq34k" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diary/">diary</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         

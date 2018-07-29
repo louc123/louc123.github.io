@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>llvm-2 | LOUC&#39;S BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+<meta name="keywords" content="diary">
+<meta property="og:type" content="article">
+<meta property="og:title" content="llvm-2">
+<meta property="og:url" content="https://louc123.github.io/2018/07/29/llvm-2/index.html">
+<meta property="og:site_name" content="LOUC&#39;S BLOG">
+<meta property="og:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-29T15:06:26.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="llvm-2">
+<meta name="twitter:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+  
+    <link rel="alternate" href="/atom.xml" title="LOUC&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LOUC&#39;S BLOG</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Daily-Record</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://louc123.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-llvm-2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/29/llvm-2/" class="article-date">
+  <time datetime="2018-07-29T12:51:11.000Z" itemprop="datePublished">2018-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      llvm-2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结一下llvm 6的编译、安装和pass的简单使用</p>
+<ul>
+<li>llvm 编译与安装</li>
+<li>Pass 编写使用</li>
+</ul>
+<h1 id="llvm-编译与安装"><a href="#llvm-编译与安装" class="headerlink" title=" llvm 编译与安装"></a><font color="green"> llvm 编译与安装</font></h1><p>这里主要结合llvm的官方文档，请参考</p>
+<p><a href="http://llvm.org/docs/GettingStarted.html" target="_blank" rel="noopener">http://llvm.org/docs/GettingStarted.html</a><a href="http://llvm.org/docs/CMake.html" target="_blank" rel="noopener">http://llvm.org/docs/CMake.html</a></p>
+<ol>
+<li>建立空的文件夹用于安装llvm</li>
+<li><p>使用svn下载llvm、clang和Compiler-RT（需要安装subversion）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># llvm:</span></span><br><span class="line">svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm</span><br><span class="line"><span class="comment"># clang</span></span><br><span class="line"><span class="built_in">cd</span> llvm/tools</span><br><span class="line">svn co http://llvm.org/svn/llvm-project/cfe/trunk clang</span><br><span class="line"><span class="comment"># Compiler-RT</span></span><br><span class="line"><span class="built_in">cd</span> llvm/projects</span><br><span class="line">svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用cmake3.4.3进行编译安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 为了防止编译污染源码，llvm不支持在本文件夹下直接编译，所以需要新建一个编译文件夹</span></span><br><span class="line"><span class="built_in">cd</span> <span class="built_in">where</span> you want to build llvm</span><br><span class="line">mkdir build</span><br><span class="line"><span class="built_in">cd</span> build</span><br><span class="line"><span class="comment"># cmake有一些编译选项可以设置，这里我只设置build类型</span></span><br><span class="line"><span class="comment"># type默认是Debug，但是编译完后太大了，有40G左右，所以一般使用设置成Release即可</span></span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release &lt;path to llvm sources&gt;</span><br><span class="line">cmake build .</span><br><span class="line"><span class="comment"># 如果有多个cpu，可以并行进行加速，如make的-j选项，后接cpu数</span></span><br><span class="line">make -j4</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用以下命令查看是否安装成功</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">which</span> llvm-dis</span><br><span class="line"><span class="built_in">which</span> llvm-as</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<h1 id="Pass编写使用"><a href="#Pass编写使用" class="headerlink" title=" Pass编写使用"></a><font color="green"> Pass编写使用</font></h1><p>llvm 的Pass框架是LLVM系统的一个很重要的部分。llvm的优化和转换工作就是由很多个pass来一起完成的。类似流水线操作一样，每个pass完成特定的优化工作。官方文档中给的例子是llvm/lib/Transforms/Hello,这里在它的基础上新建另外的一个简单例子进行演示。</p>
+<ol>
+<li>在llvm/lib/Transforms下新建文件夹，命名为MyHello</li>
+<li>将llvm/lib/Transforms/Hello里的文件复制到MyHello里，并更改文件名称，最终文件结构如下：<br><br><code>MyTest</code><br><br>&emsp;<code>|--CMakeLists.txt</code><br><br>&emsp;<code>|--MyHello.cpp</code><br><br>&emsp;<code>|--MyHello.exports</code><br><br>将CMakeLists.txt、MyHello.cpp中所有Hello替换成MyHello</li>
+<li>回到之前编译llvm的build文件夹，使用make进行编译</li>
+<li>最后生成LLVMMyHello.so文件，位于build/lib</li>
+<li>通过opt指令进行使用（假设IR文件已生成）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">opt –load &lt;path&gt;/LLVMMyHello.so –MyHello &lt;path&gt;/test.bc</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>具体的pass文件内容编写待续</p>
+<p>参考文献:</p>
+<blockquote>
+<p>Getting Started with the LLVM System<a href="http://llvm.org/docs/GettingStarted.html" target="_blank" rel="noopener">http://llvm.org/docs/GettingStarted.html</a></p>
+</blockquote>
+<blockquote>
+<p>Writing an LLVM Pass<a href="http://llvm.org/docs/WritingAnLLVMPass.html" target="_blank" rel="noopener">http://llvm.org/docs/WritingAnLLVMPass.html</a></p>
+</blockquote>
+<blockquote>
+<p>Building LLVM with CMake<a href="http://llvm.org/docs/CMake.html" target="_blank" rel="noopener">http://llvm.org/docs/CMake.html</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://louc123.github.io/2018/07/29/llvm-2/" data-id="cjk6z9xb40000mcv9jez8q5br" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diary/">diary</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/25/llvm-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">llvm (1)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/diary/">diary</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/diary/" style="font-size: 10px;">diary</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/29/llvm-2/">llvm-2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/25/llvm-1/">llvm (1)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/22/sweep3d-data-create/">sweep3d data create</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/hexo-blog-build/">hexo blog build</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Louc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

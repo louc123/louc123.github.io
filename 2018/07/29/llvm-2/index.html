@@ -7,18 +7,18 @@
   
   <title>llvm-2 | LOUC&#39;S BLOG</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+  <meta name="description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装 建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（需要安装subversion） 12345678# llvm:svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm# clan">
 <meta name="keywords" content="diary">
 <meta property="og:type" content="article">
 <meta property="og:title" content="llvm-2">
 <meta property="og:url" content="https://louc123.github.io/2018/07/29/llvm-2/index.html">
 <meta property="og:site_name" content="LOUC&#39;S BLOG">
-<meta property="og:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+<meta property="og:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装 建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（需要安装subversion） 12345678# llvm:svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm# clan">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-29T15:06:26.404Z">
+<meta property="og:updated_time" content="2018-07-30T14:31:59.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="llvm-2">
-<meta name="twitter:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装这里主要结合llvm的官方文档，请参考 http://llvm.org/docs/GettingStarted.htmlhttp://llvm.org/docs/CMake.html  建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（">
+<meta name="twitter:description" content="总结一下llvm 6的编译、安装和pass的简单使用  llvm 编译与安装 Pass 编写使用   llvm 编译与安装 建立空的文件夹用于安装llvm 使用svn下载llvm、clang和Compiler-RT（需要安装subversion） 12345678# llvm:svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm# clan">
   
     <link rel="alternate" href="/atom.xml" title="LOUC&#39;S BLOG" type="application/atom+xml">
   
@@ -98,9 +98,7 @@
 <li>llvm 编译与安装</li>
 <li>Pass 编写使用</li>
 </ul>
-<h1 id="llvm-编译与安装"><a href="#llvm-编译与安装" class="headerlink" title=" llvm 编译与安装"></a><font color="green"> llvm 编译与安装</font></h1><p>这里主要结合llvm的官方文档，请参考</p>
-<p><a href="http://llvm.org/docs/GettingStarted.html" target="_blank" rel="noopener">http://llvm.org/docs/GettingStarted.html</a><a href="http://llvm.org/docs/CMake.html" target="_blank" rel="noopener">http://llvm.org/docs/CMake.html</a></p>
-<ol>
+<h1 id="llvm-编译与安装"><a href="#llvm-编译与安装" class="headerlink" title=" llvm 编译与安装"></a><font color="green"> llvm 编译与安装</font></h1><ol>
 <li>建立空的文件夹用于安装llvm</li>
 <li><p>使用svn下载llvm、clang和Compiler-RT（需要安装subversion）</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># llvm:</span></span><br><span class="line">svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm</span><br><span class="line"><span class="comment"># clang</span></span><br><span class="line"><span class="built_in">cd</span> llvm/tools</span><br><span class="line">svn co http://llvm.org/svn/llvm-project/cfe/trunk clang</span><br><span class="line"><span class="comment"># Compiler-RT</span></span><br><span class="line"><span class="built_in">cd</span> llvm/projects</span><br><span class="line">svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt</span><br></pre></td></tr></table></figure>
@@ -137,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://louc123.github.io/2018/07/29/llvm-2/" data-id="cjk6z9xb40000mcv9jez8q5br" class="article-share-link">Share</a>
+      <a data-url="https://louc123.github.io/2018/07/29/llvm-2/" data-id="cjk94hhdu00027kv9bim33d9h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diary/">diary</a></li></ul>
@@ -148,10 +146,19 @@
     
 <nav id="article-nav">
   
+    <a href="/2018/07/30/numpy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          numpy
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/07/25/llvm-1/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">llvm (1)</div>
+      <div class="article-nav-title">llvm-1</div>
     </a>
   
 </nav>
@@ -202,11 +209,15 @@
       <ul>
         
           <li>
+            <a href="/2018/07/30/numpy/">numpy</a>
+          </li>
+        
+          <li>
             <a href="/2018/07/29/llvm-2/">llvm-2</a>
           </li>
         
           <li>
-            <a href="/2018/07/25/llvm-1/">llvm (1)</a>
+            <a href="/2018/07/25/llvm-1/">llvm-1</a>
           </li>
         
           <li>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>numpy | LOUC&#39;S BLOG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="总结一下用到的numpy的相关操作,python 3  提取数据 切片 添加删除行/列   从txt中提取数据 1234# 库引用，下同import numpy as np# 这里txt里的数据以空格分开，每条数据单独一行data=np.load(&quot;&amp;lt;path&amp;gt;/data.txt&quot;)  从ndarray中根据条件切片 123# 选出所有最后一列大于等于10的数据# data[:,-1]">
+<meta name="keywords" content="diary">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy">
+<meta property="og:url" content="https://louc123.github.io/2018/07/30/numpy/index.html">
+<meta property="og:site_name" content="LOUC&#39;S BLOG">
+<meta property="og:description" content="总结一下用到的numpy的相关操作,python 3  提取数据 切片 添加删除行/列   从txt中提取数据 1234# 库引用，下同import numpy as np# 这里txt里的数据以空格分开，每条数据单独一行data=np.load(&quot;&amp;lt;path&amp;gt;/data.txt&quot;)  从ndarray中根据条件切片 123# 选出所有最后一列大于等于10的数据# data[:,-1]">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-07-31T03:07:39.925Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="numpy">
+<meta name="twitter:description" content="总结一下用到的numpy的相关操作,python 3  提取数据 切片 添加删除行/列   从txt中提取数据 1234# 库引用，下同import numpy as np# 这里txt里的数据以空格分开，每条数据单独一行data=np.load(&quot;&amp;lt;path&amp;gt;/data.txt&quot;)  从ndarray中根据条件切片 123# 选出所有最后一列大于等于10的数据# data[:,-1]">
+  
+    <link rel="alternate" href="/atom.xml" title="LOUC&#39;S BLOG" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">LOUC&#39;S BLOG</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Daily-Record</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://louc123.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-numpy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/07/30/numpy/" class="article-date">
+  <time datetime="2018-07-30T14:31:26.000Z" itemprop="datePublished">2018-07-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      numpy
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结一下用到的numpy的相关操作,python 3</p>
+<ul>
+<li>提取数据</li>
+<li>切片</li>
+<li>添加删除行/列</li>
+</ul>
+<ol>
+<li><p>从txt中提取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 库引用，下同</span></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="comment"># 这里txt里的数据以空格分开，每条数据单独一行</span></span><br><span class="line">data=np.load(<span class="string">"&lt;path&gt;/data.txt"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从ndarray中根据条件切片</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 选出所有最后一列大于等于10的数据</span></span><br><span class="line"><span class="comment"># data[:,-1]&gt;=10，满足条件的行会返回True</span></span><br><span class="line">data_new=data[data[:,<span class="number">-1</span>]&gt;=<span class="number">10</span>,:]</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<ol start="3">
+<li><p>在数组末尾添加行/列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 该函数不会改变原数组，所以需要显示赋值给原数组</span></span><br><span class="line"><span class="comment"># 第一个参数是要添加到的数组，第二个数组是要添加的数组</span></span><br><span class="line"><span class="comment"># axis表示方向，0代表纵向，添加行；1代表横向，添加列</span></span><br><span class="line"><span class="comment"># data_new和data_add需要维数相同</span></span><br><span class="line">data_new=np.append(data_new,data_add,axis=<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 这里有个小技巧，data[:,0]是一维的，data[:,0:1]是二维的</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在数组指定位置添加行/列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># insert函数不会改变原数组</span></span><br><span class="line"><span class="comment"># 第一个参数是要添加到的数组，第二个数组是要添加的数组</span></span><br><span class="line"><span class="comment"># axis同上</span></span><br><span class="line"><span class="comment"># data_new和data_add需要维数相同</span></span><br><span class="line">data_train=np.insert(data_new,<span class="number">3</span>,data_add,axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除指定位置某行/列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># delete函数不会改变原数组</span></span><br><span class="line"><span class="comment"># 第一个参数是要删除的数组，第二个参数是要删除的位置，可以是数值或切片</span></span><br><span class="line"><span class="comment"># axis同上</span></span><br><span class="line"><span class="comment"># 推荐使用np.s_建立数组索引，而不是直接使用数字索引</span></span><br><span class="line"> data_train=np.delete(data_new,np.s_[min:max],axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://louc123.github.io/2018/07/30/numpy/" data-id="cjk94hhdz00047kv9u0v0p3nl" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/diary/">diary</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/29/llvm-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">llvm-2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/diary/">diary</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/diary/" style="font-size: 10px;">diary</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/07/30/numpy/">numpy</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/29/llvm-2/">llvm-2</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/25/llvm-1/">llvm-1</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/22/sweep3d-data-create/">sweep3d data create</a>
+          </li>
+        
+          <li>
+            <a href="/2018/07/20/hexo-blog-build/">hexo blog build</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Louc<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
